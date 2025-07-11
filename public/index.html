@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virus Dodge - Jeu Multijoueur</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="gameContainer">
+        <div id="langSelectContainer" style="display: flex; align-items: center; justify-content: flex-end; margin-bottom: 10px;">
+            <label for="langSelect" id="chooseLangLabel" style="margin-right: 8px;">Langue :</label>
+            <select id="langSelect">
+                <option value="fr">Français</option>
+                <option value="en">English</option>
+                <option value="it">Italiano</option>
+                <option value="hy">Հայերեն</option>
+                <option value="ru">Русский</option>
+                <option value="de">Deutsch</option>
+                <option value="es">Español</option>
+                <option value="zh">中文</option>
+                <option value="ja">日本語</option>
+            </select>
+        </div>
+        <h1 id="mainTitle">Virus Dodge</h1>
+        
+        <!-- Écran de connexion -->
+        <div id="loginScreen" class="screen">
+            <h2 id="loginTitle">Rejoindre la partie</h2>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                <label id="pseudoLabel" for="playerName" style="font-size: 1em; color: #fff;">Choisissez un pseudo :</label>
+                <input type="text" id="playerName" placeholder="Votre nom" maxlength="20" style="margin-bottom: 0;">
+                <label id="colorLabel" style="font-size: 1em; margin-bottom: 8px; color: #fff;">Couleur du vaisseau :
+                    <input type="color" id="playerColor" value="#4CAF50" style="margin-left: 8px; width: 40px; height: 32px; border: none; background: none;">
+                </label>
+            </div>
+            <div style="margin-top: 16px; display: flex; gap: 16px; justify-content: center;">
+                <button id="soloButton">Solo</button>
+                <button id="multiButton">Multijoueur</button>
+            </div>
+        </div>
+
+        <!-- Écran d'attente -->
+        <div id="waitingScreen" class="screen hidden">
+            <h2>En attente d'autres joueurs...</h2>
+            <p>Joueurs connectés: <span id="playerCount">0</span></p>
+            <button id="startButton" class="hidden">Démarrer la partie</button>
+        </div>
+
+        <!-- Écran de jeu -->
+        <div id="gameScreen" class="screen hidden">
+            <div id="gameInfo">
+                <span><span></span><span id="playersAlive">0</span></span>
+                <span><span></span><span id="gameTime">0</span><span id="gameTimeUnit">s</span></span>
+                <span><span></span><span id="enemyCount">0</span></span>
+            </div>
+            <div id="capacityNotif" style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%); background: rgba(30,30,40,0.92); color: #fff; padding: 8px 24px; border-radius: 16px; font-size: 1.2em; font-weight: bold; z-index: 20; display: none; box-shadow: 0 2px 8px #0008; letter-spacing: 1px;"></div>
+            <canvas id="gameCanvas" width="1400" height="1000"></canvas>
+        </div>
+
+        <!-- Écran de mort personnalisé -->
+        <div id="deathPopup" class="popup hidden">
+            <div class="popup-content">
+                <h2>Vous êtes mort !</h2>
+                <button id="deathSpectateButton">Spectateur</button>
+                <button id="deathPlayAgainButton">Rejouer</button>
+            </div>
+        </div>
+
+        <!-- Écran de fin de partie -->
+        <div id="gameOverScreen" class="screen hidden">
+            <h2 id="gameResult"></h2>
+            <button id="playAgainButton">Rejouer</button>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="client.js"></script>
+</body>
+</html>
